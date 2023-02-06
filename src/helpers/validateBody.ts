@@ -20,7 +20,7 @@ export const validateBody = (args: interfaceBody[]) => {
       }
     }
     if (el.type === 'number') {
-      if (typeof el.param !== 'number') {
+      if (typeof Number(el.param) !== 'number') {
         throw new BadRequestError(
           `O campo ${el.field} precisa ser do tipo numérico`
         );

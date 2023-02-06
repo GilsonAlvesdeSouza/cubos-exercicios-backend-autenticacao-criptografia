@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import 'dotenv/config';
-import { sign as sign } from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { BadRequestError } from '../../errors';
 import { User } from '../../models/UserModels';
 import { dbConnect } from '../../pg_connection';
