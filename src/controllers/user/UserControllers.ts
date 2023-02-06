@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { hash } from 'bcryptjs';
-import { validateBody } from '../helpers/validateBody';
-import { User } from '../models/userModels';
-import UserServices from '../services/UserServices';
+import { validateBody } from '../../helpers/validateBody';
+import { User } from '../../models/UserModels';
+import UserServices from '../../services/user/UserServices';
 
 const userService = new UserServices();
 

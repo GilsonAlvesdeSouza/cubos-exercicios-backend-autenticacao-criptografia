@@ -1,12 +1,12 @@
 import { BadRequestError } from '../errors';
 
-type BodyType = {
+type interfaceBody = {
   param: string;
   field: string;
   type: string;
 };
 
-export const validateBody = (args: BodyType[]) => {
+export const validateBody = (args: interfaceBody[]) => {
   let validateObject: any = {};
   for (const el of args) {
     if (!el.param || el.param === '') {

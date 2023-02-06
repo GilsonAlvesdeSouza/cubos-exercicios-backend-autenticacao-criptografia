@@ -1,7 +1,7 @@
-import { BadRequestError } from '../errors';
-import { getErrorMessage } from '../helpers/getErrors';
-import { User } from '../models/userModels';
-import { dbConnect } from '../pg_connection';
+import { BadRequestError } from '../../errors';
+import { getErrorMessage } from '../../helpers/getErrors';
+import { User } from '../../models/UserModels';
+import { dbConnect } from '../../pg_connection';
 
 export default class UserServices {
   async save({ nome, email, senha }: User) {
