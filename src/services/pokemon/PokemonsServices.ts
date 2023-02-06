@@ -8,6 +8,7 @@ export default class PokemonsServices {
     join usuarios u on u.id = p.usuario_id ;`;
     const result = await dbConnect.query(query);
     const resultList = result.rows;
+
     type pokemonType = {
       id: number;
       usuario: string;
@@ -18,8 +19,10 @@ export default class PokemonsServices {
     };
 
     const pokemonList: pokemonType[] = [];
+
     for (const el of resultList) {
       let habilidades: string[] = [];
+
       if (el.habilidades) {
         habilidades = el.habilidades.split(',');
       }
@@ -45,6 +48,7 @@ export default class PokemonsServices {
     if (result.rows[0] < 1) {
       return undefined;
     }
+
     const pokemon: Pokemon = result.rows[0];
 
     return pokemon;
@@ -57,7 +61,6 @@ export default class PokemonsServices {
 
     try {
       const result = await dbConnect.query(query, params);
-
       const pokemon: Pokemon = result.rows[0];
       return pokemon;
     } catch (error) {
@@ -67,6 +70,7 @@ export default class PokemonsServices {
 
   async update(id: number, name: string) {
     const pokemon = await this.find(id);
+
     if (pokemon) {
       console.log(pokemon?.id);
       const query = `update pokemons set nome = $1
@@ -74,6 +78,16 @@ export default class PokemonsServices {
       const params = [name, id];
       const result = await dbConnect.query(query, params);
       return result.rows[0];
+    }
+  }
+
+  async delete(id: number) {
+    const pokemon = await this.find(id);
+
+    if (pokemon) {
+      const query = `delete from pokemons where id = $1;`;
+      const result = await dbConnect.query(query, [id]);
+      return true;
     }
   }
 }

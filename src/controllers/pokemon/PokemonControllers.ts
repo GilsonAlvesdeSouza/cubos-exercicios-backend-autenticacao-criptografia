@@ -19,7 +19,7 @@ export default class PokemonControllers {
     const { nome, habilidades, imagem, apelido }: Pokemon = req.body;
     const usuario_id = Number(req.user_id);
 
-    const pokemon: Pokemon = validateBody([
+    const body: Pokemon = validateBody([
       {
         param: nome,
         field: 'nome',
@@ -31,11 +31,11 @@ export default class PokemonControllers {
         type: 'string'
       }
     ]);
-    pokemon.usuario_id = usuario_id;
-    pokemon.imagem = imagem?.toString().trim();
-    pokemon.apelido = apelido?.toString().trim();
+    body.usuario_id = usuario_id;
+    body.imagem = imagem?.toString().trim();
+    body.apelido = apelido?.toString().trim();
 
-    const newPokemon: Pokemon = await pokemonService.save(pokemon);
+    const newPokemon: Pokemon = await pokemonService.save(body);
 
     res.status(201).json(newPokemon);
   }
@@ -43,7 +43,7 @@ export default class PokemonControllers {
   async find(req: Request, res: Response) {
     const id = req.params.id;
 
-    const idPokemon = validateBody([
+    const body = validateBody([
       {
         param: id,
         field: 'id',
@@ -51,7 +51,7 @@ export default class PokemonControllers {
       }
     ]);
 
-    const pokemon = await pokemonService.find(Number(idPokemon.id));
+    const pokemon = await pokemonService.find(Number(body.id));
 
     if (!pokemon) {
       throw new NotFoundError('Pokemon não encontrado.');
@@ -83,5 +83,25 @@ export default class PokemonControllers {
       throw new NotFoundError('Pokemon não encontrado.');
     }
     return res.json(pokemon);
+  }
+
+  async remove(req: Request, res: Response) {
+    const id = req.params.id;
+
+    const body = validateBody([
+      {
+        param: id,
+        field: 'id',
+        type: 'number'
+      }
+    ]);
+
+    const pokemon = await pokemonService.delete(Number(body.id));
+
+    if (!pokemon) {
+      throw new NotFoundError('Pokemon não encontrado.');
+    }
+
+    res.status(200).json({ message: 'Removido com sucesso' });
   }
 }

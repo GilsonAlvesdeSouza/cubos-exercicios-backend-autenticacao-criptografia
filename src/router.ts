@@ -17,3 +17,4 @@ router.get('/pokemons', pokemonController.index);
 router.post('/pokemons', pokemonController.store);
 router.get('/pokemons/:id', pokemonController.find);
 router.patch('/pokemons/:id', pokemonController.editName);
+router.delete('/pokemons/:id', pokemonController.remove);
