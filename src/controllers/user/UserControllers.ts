@@ -31,8 +31,8 @@ export default class UserControllers {
 
     user.senha = passwordHash;
 
-    const newUser: User = <User>await userService.save(user);
+    const newUser: User = await userService.save(user);
 
-    res.json(newUser);
+    res.status(201).json(newUser);
   }
 }

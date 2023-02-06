@@ -3,7 +3,7 @@ import { BadRequestError } from '../errors';
 type interfaceBody = {
   param: string;
   field: string;
-  type: string;
+  type: 'string' | 'number' | 'boolean';
 };
 
 export const validateBody = (args: interfaceBody[]) => {
