@@ -65,5 +65,15 @@ export default class PokemonsServices {
     }
   }
 
-  async edit(id: number) {}
+  async update(id: number, name: string) {
+    const pokemon = await this.find(id);
+    if (pokemon) {
+      console.log(pokemon?.id);
+      const query = `update pokemons set nome = $1
+      where id = $2 returning *`;
+      const params = [name, id];
+      const result = await dbConnect.query(query, params);
+      return result.rows[0];
+    }
+  }
 }

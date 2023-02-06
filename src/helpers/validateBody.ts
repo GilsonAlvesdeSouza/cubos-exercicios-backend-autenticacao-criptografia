@@ -15,21 +15,21 @@ export const validateBody = (args: interfaceBody[]) => {
     if (el.type === 'string') {
       if (typeof el.param !== 'string') {
         throw new BadRequestError(
-          `O campo ${el.field} precisa ser do tipo texto`
+          `O parâmetro ${el.field} precisa ser do tipo texto`
         );
       }
     }
     if (el.type === 'number') {
-      if (typeof Number(el.param) !== 'number') {
+      if (!Number(el.param)) {
         throw new BadRequestError(
-          `O campo ${el.field} precisa ser do tipo numérico`
+          `O parâmetro ${el.field} precisa ser do tipo numérico`
         );
       }
     }
     if (el.type === 'boolean') {
       if (typeof el.param !== 'boolean') {
         throw new BadRequestError(
-          `O campo ${el.field} precisa ser do tipo booleano`
+          `O parâmetro ${el.field} precisa ser do tipo booleano`
         );
       }
     }

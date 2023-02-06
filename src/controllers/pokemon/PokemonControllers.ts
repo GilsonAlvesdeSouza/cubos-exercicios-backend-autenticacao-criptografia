@@ -1,4 +1,4 @@
-import { json, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { NotFoundError } from '../../errors';
 import { validateBody } from '../../helpers/validateBody';
 import { Pokemon } from '../../models/PokemonModels';
@@ -58,5 +58,30 @@ export default class PokemonControllers {
     }
 
     res.json(pokemon);
+  }
+
+  async editName(req: Request, res: Response) {
+    const id = req.params.id;
+    const nome = req.body.nome;
+
+    const body = validateBody([
+      {
+        param: id,
+        field: 'id',
+        type: 'number'
+      },
+      {
+        param: nome,
+        field: 'nome',
+        type: 'string'
+      }
+    ]);
+
+    const pokemon = await pokemonService.update(Number(body.id), body.nome);
+
+    if (!pokemon) {
+      throw new NotFoundError('Pokemon não encontrado.');
+    }
+    return res.json(pokemon);
   }
 }
